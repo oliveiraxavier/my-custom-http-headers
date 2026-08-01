@@ -485,6 +485,12 @@ cancelCreateBtn.style.display = 'none';
 
 let projects = {};
 
+function hasValidProjectSelection() {
+  const selectedValue = projectSelect?.value || '';
+  if (!selectedValue) return false;
+  return selectedValue !== 'Adicione um projeto para começar' && selectedValue !== '-- Selecione um projeto --';
+}
+
 function updateDomainFilterButtonState() {
   if (!domainFilterBtn) return;
 
@@ -545,11 +551,15 @@ function updateProjectSelect(unlockedProjectName) {
   const names = new Set(Object.keys(projects || {}));
   (encryptedProjects || []).forEach(n => names.add(n));
 
-  if (names.size === 0) {
-    projectSelect.innerHTML = '<option>Adicione um projeto para começar</option>';
-  } else {
-    projectSelect.innerHTML = '<option value="">-- Selecione um projeto --</option>';
-  }
+  projectSelect.replaceChildren();
+
+  const placeholderOption = document.createElement('option');
+  placeholderOption.textContent = names.size === 0
+    ? 'Adicione um projeto para começar'
+    : '-- Selecione um projeto --';
+  placeholderOption.value = '';
+
+  projectSelect.appendChild(placeholderOption);
 
   Array.from(names).sort().forEach(projectName => {
     const option = document.createElement('option');
@@ -560,8 +570,10 @@ function updateProjectSelect(unlockedProjectName) {
     projectSelect.appendChild(option);
   });
 
-  if (currentProject) {
+  if (currentProject && names.has(currentProject)) {
     projectSelect.value = currentProject;
+  } else {
+    projectSelect.value = '';
   }
 }
 
@@ -662,12 +674,12 @@ function resetCreateProjectUi() {
   cancelCreateBtn.style.display = 'none';
   projectSelect.style.display = 'inline-block';
   importProjectBtn.style.display = 'inline-block';
-  const projectSelected = !!currentProject;
+  const projectSelected = hasValidProjectSelection();
   exportProjectBtn.style.display = projectSelected ? 'inline-block' : 'none';
   domainFilterBtn.style.display = projectSelected ? 'inline-block' : 'none';
   deleteProjectBtn.style.display = projectSelected ? 'inline-block' : 'none';
 
-  const isEncryptedAndLocked = currentProject && encryptedProjects.includes(currentProject) && form.classList.contains('hidden');
+  const isEncryptedAndLocked = projectSelected && currentProject && encryptedProjects.includes(currentProject) && form.classList.contains('hidden');
   unlockProjectBtn.style.display = isEncryptedAndLocked ? 'inline-block' : 'none';
 }
 
@@ -921,9 +933,10 @@ function setHeaderFormVisible(visible) {
   if (!form) return;
   if (visible) {
     form.classList.remove('hidden');
-    exportProjectBtn.style.display = 'inline-block';
-    domainFilterBtn.style.display = 'inline-block';
-    deleteProjectBtn.style.display = 'inline-block';
+    const projectSelected = hasValidProjectSelection();
+    exportProjectBtn.style.display = projectSelected ? 'inline-block' : 'none';
+    domainFilterBtn.style.display = projectSelected ? 'inline-block' : 'none';
+    deleteProjectBtn.style.display = projectSelected ? 'inline-block' : 'none';
     unlockProjectBtn.style.display = 'none';
     updateDomainFilterButtonState();
   } else {
@@ -931,7 +944,7 @@ function setHeaderFormVisible(visible) {
     exportProjectBtn.style.display = 'none';
     domainFilterBtn.style.display = 'none';
     deleteProjectBtn.style.display = 'none';
-    unlockProjectBtn.style.display = (currentProject && encryptedProjects.includes(currentProject)) ? 'inline-block' : 'none';
+    unlockProjectBtn.style.display = (hasValidProjectSelection() && currentProject && encryptedProjects.includes(currentProject)) ? 'inline-block' : 'none';
     updateDomainFilterButtonState();
   }
 }
@@ -1045,15 +1058,27 @@ function renderList() {
 
   const headerRow = document.createElement('div');
   headerRow.className = 'list-header';
-  headerRow.innerHTML = `
-    <div class="list-item-column">
-      <span class="list-item-label">Header</span>
-    </div>
-    <div class="list-item-column">
-      <span class="list-item-label">Valor</span>
-    </div>
-    <div class="list-actions"></div>
-  `;
+
+  const headerColumn = document.createElement('div');
+  headerColumn.className = 'list-item-column';
+  const headerLabel = document.createElement('span');
+  headerLabel.className = 'list-item-label';
+  headerLabel.textContent = 'Header';
+  headerColumn.appendChild(headerLabel);
+
+  const valueColumn = document.createElement('div');
+  valueColumn.className = 'list-item-column';
+  const valueLabel = document.createElement('span');
+  valueLabel.className = 'list-item-label';
+  valueLabel.textContent = 'Valor';
+  valueColumn.appendChild(valueLabel);
+
+  const actionsColumn = document.createElement('div');
+  actionsColumn.className = 'list-actions';
+
+  headerRow.appendChild(headerColumn);
+  headerRow.appendChild(valueColumn);
+  headerRow.appendChild(actionsColumn);
   listContainer.appendChild(headerRow);
 
   headers.forEach(header => {
