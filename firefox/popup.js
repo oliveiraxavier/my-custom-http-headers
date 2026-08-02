@@ -434,6 +434,7 @@ class DomainFilterModal extends Modal {
             li.appendChild(button);
             this.list.appendChild(li);
         });
+        this.list.scrollTop = this.list.scrollHeight;
     }
 }
 
