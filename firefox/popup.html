@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My HTTP headers</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="header">
+    <h1>My custom HTTP headers</h1>
+    <button id="theme-toggle" class="theme-toggle" title="Alternar tema">🌙</button>
+  </div>
+
+  <div class="project-section">
+    <label for="project-select">Projeto:</label>
+    <div class="project-controls">
+      <select id="project-select">
+        <option value="">Adicione um projeto para começar</option>
+      </select>
+      <div class="project-actions">
+        <input id="new-project" type="text" placeholder="Novo projeto" autocomplete="off" />
+        <button id="create-project" type="button" class="btn-info" title="Adicionar um novo projeto">Criar</button>
+        <button id="cancel-create-project" type="button" title="Cancelar">Cancelar</button>
+        <button id="delete-project" class="btn-icon-danger icon-label-button" type="button" title="Remover projeto" aria-label="Remover projeto">🗑</button>
+        <button id="domain-filter-btn" class="btn-icon icon-label-button" type="button" title="Filtro de domínios" style="display: none;" aria-label="Filtro de domínios">🌐</button>
+        <button id="export-project" class="btn-icon icon-label-button" type="button" title="Exportar projeto para arquivo JSON" aria-label="Exportar projeto para arquivo JSON">💾</button>
+        <button id="import-project" class="btn-icon icon-label-button" type="button" title="Importar projeto de conteúdo JSON" aria-label="Importar projeto de conteúdo JSON">🗐</button>
+        <button id="unlock-project-btn" class="btn-icon unlock-project-btn icon-label-button" type="button" style="display: none;" title="Desbloquear projeto" aria-label="Desbloquear projeto">🔓</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="message" id="message"></div>
+  <form id="header-form">
+    <div class="row">
+      <input id="header-key" type="text" placeholder="Nome do header" autocomplete="off" />
+      <input id="header-value" type="text" placeholder="Valor do header" autocomplete="off" />
+    </div>
+    <div class="row">
+      <button id="add-header" class="btn-info" type="submit">Adicionar</button>
+      <button id="cancel-header" type="button" class="btn-danger" style="display: none;">Cancelar</button>
+    </div>
+  </form>
+  <div id="headers-list"></div>
+  <div class="empty" id="empty-state"></div>
+
+  <div id="confirm-modal" class="modal-md" style="display: none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h2 id="confirm-title">Confirmar exclusão</h2>
+      <p id="confirm-message"></p>
+      <div class="modal-actions">
+        <button id="confirm-delete" class="btn-info">Excluir</button>
+        <button id="confirm-cancel" class="btn-danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="password-modal" class="modal-md" style="display:none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h2 id="password-title">Senha</h2>
+      <div id="password-message" class="alert-message" style="display:none;"></div>
+      <div style="margin-bottom:12px;">
+        <input id="project-name-input" type="text" placeholder="Nome do projeto" style="width:100%; padding:8px; margin-bottom:8px; box-sizing:border-box; display:none;" autocomplete="off" />
+        <input id="password-input" type="password" placeholder="Senha" style="width:100%; padding:8px; margin-bottom:8px; box-sizing:border-box;" autocomplete="new-password" />
+        <input id="password-confirm-input" type="password" placeholder="Confirme a senha" style="width:100%; padding:8px; box-sizing:border-box; display:none;" />
+      </div>
+      <div class="modal-actions">
+        <button id="password-confirm" class="btn-info">Confirmar</button>
+        <button id="password-cancel" class="btn-danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Simple confirm modal for questions like 'encrypt project?' -->
+  <div id="encrypt-modal" class="modal-md" style="display:none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h2 id="encrypt-title">Confirmação</h2>
+      <p id="encrypt-message">Deseja continuar?</p>
+      <div class="modal-actions">
+        <button id="encrypt-confirm" class="btn-info">Confirmar</button>
+        <button id="encrypt-cancel" class="btn-danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for pasting JSON to import -->
+  <div id="import-modal" class="modal" style="display:none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div id="import-title" class="modal-title">Cole aqui o conteúdo do arquivo exportado de um projeto</div>
+      <textarea id="import-json-content" placeholder="Cole aqui o conteúdo do arquivo JSON exportado" spellcheck="false"></textarea>
+      <div class="modal-actions">
+        <button id="import-confirm" class="btn-info">Importar</button>
+        <button id="import-cancel" class="btn-danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Domain Filtering -->
+  <div id="domain-filter-modal" class="modal" style="display:none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div id="domain-filter-title" class="modal-title">Filtro de Domínios</div>
+      <p>
+        Adicione domínios para aplicar os headers, exemplos:
+        <br>*://domain.com/*
+        <br>*://subdomain.domain.com/*
+        <br>https://subdomain.domain.com/*
+        <br>Use <strong>&lt;all_urls&gt;</strong> Para permitir todos os domínios (não recomendado).
+        <br>Se a lista estiver vazia, os headers criados não serão considerados.
+      </p>
+      <div class="domain-input-row">
+      <input id="domain-input" type="text" placeholder="*://domain.com/* etc" autocomplete="off" style="width:100%;" />
+        <button id="add-domain-btn" class="btn-info">Adicionar</button>
+      </div>
+      <div id="domain-alert-message" class="alert-message" style="display:none;"></div>
+      <ul id="domain-list"></ul>
+      <div class="modal-actions">
+        <button id="domain-filter-save" class="btn-info">Salvar</button>
+        <button id="domain-filter-cancel" class="btn-danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="export.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
