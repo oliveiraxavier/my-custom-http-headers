@@ -105,9 +105,16 @@
     <div class="modal-backdrop"></div>
     <div class="modal-content">
       <div id="domain-filter-title" class="modal-title">Filtro de Domínios</div>
-      <p>Adicione domínios para aplicar os headers (e.g., `*://*.example.com/*`). Se a lista estiver vazia, os headers criados não serão considerados.</p>
+      <p class="domain-description">
+        Adicione domínios para aplicar os headers, exemplos:
+        <br>*://domain.com/*
+        <br>*://subdomain.domain.com/*
+        <br>https://subdomain.domain.com/*
+        <br>Use <strong>&lt;all_urls&gt;</strong> Para permitir todos os domínios (não recomendado).
+        <br>Se a lista estiver vazia, os headers criados não serão considerados.
+      </p>
       <div class="domain-input-row">
-        <input id="domain-input" type="text" placeholder="*://dominio.com/*" style="width:100%;" />
+      <input id="domain-input" type="text" placeholder="*://domain.com/* etc" autocomplete="off" style="width:100%;" />
         <button id="add-domain-btn" class="btn-info">Adicionar</button>
       </div>
       <div id="domain-alert-message" class="alert-message" style="display:none;"></div>
