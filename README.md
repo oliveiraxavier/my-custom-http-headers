@@ -40,8 +40,12 @@ Se você deseja modificar ou construir a extensão a partir do código-fonte, si
 1 - Clone ou faça o download deste repositório:
 
 ```bash
-git clone <https://github.com/seu-usuario/seu-repositorio.git>
+git clone https://github.com/oliveiraxavier/my-custom-http-headers.git 
+cd my-custom-http-headers
+nvm use 24 #or your own way to use node 24
 ```
+
+Modifique o que desejar no diretório firefox
 
 2 - Abra seu navegador e navegue até a página de extensões:
 
