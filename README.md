@@ -56,6 +56,15 @@ git clone <https://github.com/seu-usuario/seu-repositorio.git>
 
 Veja no [**guia de utilização**](/docs/USAGE.md)
 
+## Screenshots
+
+![Image 1](docs/screenshots/1.png)
+![Image 2](docs/screenshots/2.png)
+![Image 3](docs/screenshots/3.png)
+![Image 4](docs/screenshots/4.png)
+![Image 5](docs/screenshots/5.png)
+![Image 5](docs/screenshots/6.png)
+
 ## Licença
 
 Este projeto é licenciado sob a **Licença MIT**. Veja o arquivo `LICENSE` para mais detalhes.

@@ -46,3 +46,4 @@ Nesse caso, a extensão não estará aplicando os headers corretamente até que 
 - Os projetos criptografados são armazenados localmente.
 - A extensão funciona com base no projetos desbloqueado da sessão atual.
 - Para que os headers sejam aplicados, é necessário ter pelo menos um header e pelo menos um domínio cadastrado, observando sempre se o domínio a ser testado está na lista de domínios.
+
