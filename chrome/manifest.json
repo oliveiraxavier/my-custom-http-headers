@@ -11,11 +11,9 @@
     "permissions": [
         "activeTab",
         "storage",
-        "declarativeNetRequest",
-        "scripting"
-
+        "declarativeNetRequest"
     ],
-    "host_permissions": [
+    "optional_host_permissions": [
         "*://*/*"
     ],
     "content_security_policy": {

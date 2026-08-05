@@ -13,9 +13,10 @@
         "storage",
         "webRequest",
         "webRequestBlocking",
-        "webNavigation"
+        "webNavigation",
+        "permissions"
     ],
-    "host_permissions": [
+    "optional_host_permissions": [
         "*://*/*"
     ],
     "content_security_policy": {

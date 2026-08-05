@@ -55,22 +55,6 @@ async function updateListener() {
   if (rules.length > 0) await chrome.declarativeNetRequest.updateDynamicRules({ addRules: rules });
 }
 
-async function checkAndRequestHostPermissions() {
-  if (!activeDomains || activeDomains.length === 0) {
-    return;
-  }
-
-  const origins = activeDomains.map(d => {
-    if (d === '<all_urls>') return '*://*/*';
-    return d;
-  });
-
-  const hasPermissions = await chrome.permissions.contains({ origins });
-  if (!hasPermissions) {
-    await chrome.permissions.request({ origins });
-  }
-}
-
 async function loadActiveProjectData() {
   const localData = await storage.local.get('currentProject');
   const sessionData = await session.get(['unlockedProject', 'unlockedData']);
@@ -82,7 +66,6 @@ async function loadActiveProjectData() {
     activeHeaders = [];
     activeDomains = [];
   }
-  await checkAndRequestHostPermissions();
   updateListener();
   updateIcon();
 }
