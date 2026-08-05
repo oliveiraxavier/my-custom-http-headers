@@ -33,7 +33,7 @@ Se você deseja modificar ou construir a extensão a partir do código-fonte, si
 
 ### Pré-requisitos
 
-- Um navegador baseado em Firefox (WIP: Chromium + Google Chrome).
+- Um navegador Mozilla Firefox ou Chromium/Google Chrome.
 
 ### Passos para Instalação Local
 
@@ -42,19 +42,22 @@ Se você deseja modificar ou construir a extensão a partir do código-fonte, si
 ```bash
 git clone https://github.com/oliveiraxavier/my-custom-http-headers.git 
 cd my-custom-http-headers
-nvm use 24 #or your own way to use node 24
+nvm use 24 # ou use sua versão de Node.js preferida
 ```
 
-Modifique o que desejar no diretório firefox
+2 - Modifique os arquivos no diretório correspondente:
 
-2 - Abra seu navegador e navegue até a página de extensões:
+- `firefox/` para a versão Firefox
+- `chrome/` para a versão Chrome
+
+3 - Abra seu navegador e navegue até a página de extensões:
 
 - **Firefox**: `about:debugging#/runtime/this-firefox`
-- **Chrome/Edge**: WIP
+- **Chrome/Edge**: `chrome://extensions`
 
-1. Ative o "Modo de Desenvolvedor" (geralmente um botão de alternância no canto superior direito).
-2. Clique em "Carregar sem compactação" (ou "Load Temporary Add-on" no Firefox) e selecione a pasta referente ao browser que prentend utilizar, certifique-se de que na raiz do diretório selecionado, exista um `manifest.json`).
-3. A extensão estará instalada e pronta para testes.
+4. Ative o "Modo de Desenvolvedor" (geralmente um botão de alternância no canto superior direito).
+5. Clique em "Carregar sem compactação" ou "Load unpacked" e selecione a pasta do navegador que deseja usar. Certifique-se de que exista um `manifest.json` na raiz desse diretório.
+6. A extensão estará instalada e pronta para testes.
 
 ## Guia de uso
 
