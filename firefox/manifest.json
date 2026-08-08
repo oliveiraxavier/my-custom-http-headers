@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "My Custom HTTP Headers",
-    "version": "1.0",
-    "description": "A browser extension to test sites with custom HTTP headers.",
+    "version": "1.0.1",
+    "description": "Teste seus sites com headers HTTP personalizados.",
     "homepage_url": "https://github.com/oliveiraxavier/my-custom-http-headers",
     "icons": {
         "48": "icons/48.png",
@@ -15,7 +15,7 @@
         "webRequestBlocking",
         "webNavigation"
     ],
-    "host_permissions": [
+    "optional_host_permissions": [
         "*://*/*"
     ],
     "content_security_policy": {
