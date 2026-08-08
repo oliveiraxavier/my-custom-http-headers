@@ -9,11 +9,13 @@ Uma extensão de navegador para gerenciar e injetar headers HTTP customizados em
 ## Visão Geral
 
 Esta extensão permite que desenvolvedores e testadores modifiquem headers de requisições HTTP de forma fácil e segura. Organize seus headers em projetos separados e proteja informações sensíveis com criptografia baseada em senha, garantindo que seus dados permaneçam seguros e acessíveis apenas durante a sessão de uso.
+Disponível na [Chrome Web Store](https://chromewebstore.google.com/detail/my-custom-http-headers/ilnempnhgjkfddghghnijjcoehnidopk).
+Em breve, disponível para o [Firefox](https://addons.mozilla.org/pt-BR/firefox/addon/my-custom-http-headers/).
 
 ## Funcionalidades
 
 - **Gerenciamento de Headers**: Adicione, edite e remova headers HTTP customizados com facilidade.
-- **Organização por Projetos**: Crie múltiplos projetos para agrupar diferentes conjuntos de headers, ideal para alternar entre contextos de trabalho.
+- **Organização por Projetos**: Crie múltiplos projetos para agrupar diferentes conjuntos de headers e domínios, ideal para alternar entre contextos de trabalho.
 - **Criptografia Segura**: Todos os projetos são armazenados localmente e protegidos com criptografia forte (AES-GCM). A senha nunca é armazenada, sendo solicitada apenas para desbloquear um projeto por sessão.
 - **Importação e Exportação**: Exporte seus projetos para um arquivo JSON para backup ou compartilhamento e importe-os facilmente em outra instalação da extensão.
 - **Tema Claro e Escuro**: Adapte a aparência da extensão ao seu gosto com um seletor de tema.
