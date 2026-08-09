@@ -5,6 +5,11 @@
 Uma extensão de navegador para gerenciar e injetar headers HTTP customizados em requisições web, com foco em segurança e organização através de projetos criptografados.
 
 É 100% gratuita, de código aberto e não coleta dados do usuário.
+Disponível para instalação aqui:
+
+[**Google Chrome**](https://chromewebstore.google.com/detail/my-custom-http-headers/ilnempnhgjkfddghghnijjcoehnidopk)
+
+[**Firefox**](https://addons.mozilla.org/pt-BR/firefox/addon/my-custom-http-headers/)
 
 ## Visão Geral
 
