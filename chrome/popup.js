@@ -900,7 +900,10 @@ domainFilterBtn.addEventListener('click', async () => {
     domains = newDomains;
     updateDomainFilterButtonState();
     runtime.sendMessage({ action: 'saveEncryptedProject', name: currentProject, data: { headers, domains }, passphrase: currentPassphrase }, async (resp) => {
-      if (resp && resp.ok) await storageSession.set({ unlockedData: { headers, domains } });
+      if (resp && resp.ok) {
+        await storageSession.set({ unlockedData: { headers, domains } });
+        await runtime.sendMessage({ action: 'checkPermissions' });
+      }
     });
     showMessage('Filtro de domínios atualizado.');
   }

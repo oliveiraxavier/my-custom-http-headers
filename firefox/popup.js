@@ -1,6 +1,7 @@
 const storage = typeof browser !== 'undefined' ? browser.storage : chrome.storage;
 const storageSession = typeof browser !== 'undefined' ? browser.storage.session : chrome.storage.session;
 const runtime = typeof browser !== 'undefined' ? browser.runtime : chrome.runtime;
+const permissions = typeof browser !== 'undefined' ? browser.permissions : chrome.permissions;
 
 let headers = [];
 let pendingDeleteKey = null;
@@ -383,6 +384,24 @@ class DomainFilterModal extends Modal {
                 return;
             }
         }
+
+        if (this.tempDomains.length > 0) {
+            try {
+                const permissionsToRequest = {
+                    origins: this.tempDomains
+                };
+                const granted = await permissions.request(permissionsToRequest);
+                if (!granted) {
+                    this.showMessage('As permissões de host não foram concedidas.', 'danger');
+                    return;
+                }
+            } catch (err) {
+                this.showMessage('Erro ao solicitar permissões de host.', 'danger');
+                console.error(err);
+                return;
+            }
+        }
+
         updateDomainFilterButtonState();
         this.hide();
         if (this.resolve) this.resolve(this.tempDomains.filter(d => d));

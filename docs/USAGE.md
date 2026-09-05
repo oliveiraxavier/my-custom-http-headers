@@ -15,7 +15,7 @@ Esta extensão ajuda a gerenciar headers HTTP personalizados por projeto, permit
 
 1. Crie um projeto no campo de projeto.
 2. Adicione os headers desejados no formulário.
-3. Defina os domínios que devem receber esses headers.
+3. Defina os domínios que devem receber esses headers. Cada projeto deve ter seus domínios adicionados.
 4. Se o projeto aparecer com um ícone 🔓, desbloqueie-o informando a senha.
 5. A extensão começará a aplicar os headers automaticamente nas requisições correspondentes, desde que o domínio esteja na lista de domínios.
 
