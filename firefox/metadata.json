@@ -1,0 +1,6 @@
+{
+    "summary": {
+        "en-US": "An extension that lets you test your websites with custom HTTP headers. Useful for A/B testing, Blue-Green deployments, or even Canary releases.",
+        "pt-BR": "Uma extensão para que você possa testar seus sites com HTTP headers customizados. Útil para testes A/B, Blue Green ou ainda Canary release."
+    }
+}

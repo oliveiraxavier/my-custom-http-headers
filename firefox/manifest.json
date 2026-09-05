@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "My Custom HTTP Headers",
-    "version": "1.0.1",
-    "description": "Teste seus sites com headers HTTP personalizados.",
+    "version": "1.0.2",
+    "description": "Esta extensão permite que desenvolvedores e modifiquem headers de requisições HTTP de forma fácil e segura. Organize seus headers em projetos e proteja informações sensíveis com criptografia baseada em senha. Nenhum dado do usuário é coletado.",
     "homepage_url": "https://github.com/oliveiraxavier/my-custom-http-headers",
     "icons": {
         "48": "icons/48.png",
@@ -16,7 +16,8 @@
         "webNavigation"
     ],
     "optional_host_permissions": [
-        "*://*/*"
+        "*://*/*",
+        "<all_urls>"
     ],
     "content_security_policy": {
         "extension_pages": "script-src 'self'; object-src 'self'"
